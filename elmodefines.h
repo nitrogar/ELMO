@@ -157,7 +157,7 @@ unsigned long systick_ints;
 #define ASMOUTPUTFILE "asmtrace%05d.txt"
 
 // Change to give path to data file if being used
-#define DATAFILEPATH "Examples/randdata100000.txt"
+#define DATAFILEPATH "data_in.txt"
 
 #define RANDDATAFILE "output/randdata.txt"
 #define UARTOUTFILE "output/printdata.txt"
