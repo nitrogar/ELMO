@@ -55,7 +55,7 @@
  *################################################################################################
  *
  * To include fixed vs random, mask flow and energy modelling evaluations define FIXEDVSRANDOM,
- * MASKFLOW and ENERGYMODEL respectively.
+// * MASKFLOW and ENERGYMODEL respectively.
  */
 
 /*******************************************************************************************/
@@ -108,7 +108,7 @@ unsigned long systick_ints;
 /*******************************************************************************************/
 /*ELMO*/
 #define MEMORY_EXTENSION//memory extension that keeps track of the read/write bus
-#define FIXEDVSRANDOM
+//#define FIXEDVSRANDOM
 //#define MASKFLOW
 //#define ENERGYMODEL
 
@@ -175,8 +175,7 @@ unsigned long systick_ints;
 #define NUMTRACES 200
 
 
-FILE *randdata, *uartout, *indexesfile, *datafile, *asmoutput, *maskflow;
-
+FILE *randdata, *uartout, *indexesfile, *datafile, *asmoutput, *maskflow, *flagfile;
 unsigned int t;
 unsigned int tracestart;
 

@@ -755,9 +755,8 @@ unsigned int read32 ( unsigned int addr )
     char *str;
 
     str = (char *)malloc(len);
-
-    if(registerdataflow && DBUG) fprintf(stderr,"read32(0x%08X)=",addr);
     
+    fprintf(stderr, "read32(0x%08X)\n", addr);
     switch(addr&0xF0000000)
     {
         case 0xE0000000:
@@ -783,19 +782,28 @@ unsigned int read32 ( unsigned int addr )
                     free(str);
                     return(data);
                 }
-                case 0xE000E01C:
-                {
-                    data=systick_calibrate;
-                    free(str);
-                    return(data);
+                case 0xE000E01C: {
+                  data = systick_calibrate;
+                  free(str);
+                  return (data);
                 }
-                case 0xE1000000:
-                {
-                    getline(&str, &len, datafile);
-                    data = (int)strtol(str, NULL, 16);
-                    //printf("%x\n", data);
-                    free(str);
-                    return(data);
+                case 0xE1000000: {
+
+                  fprintf(stderr, "data READ read32(0x%08X)=", addr);
+                  getline(&str, &len, datafile);
+                  data = (int)strtol(str, NULL, 16);
+                  printf("%x\n", data);
+                  free(str);
+                  return (data);
+                }
+                // read CTF FLAG
+                case 0xE1000020: {
+                  fprintf(stderr, "FLAG READ read32(0x%08X)=", addr);
+                  getline(&str, &len, flagfile);
+                  data = (int)strtol(str, NULL, 16);
+                  printf("%x\n", data);
+                  free(str);
+                  return (data);
                 }
                 case 0xE1000004:
                 {
@@ -4174,7 +4182,7 @@ int main ( int argc, char *argv[] )
     char line[256];
     const char s[2] = " ";
     char *token;
-    
+    char * flag_file = "flag.txt";
     t = 1; registerdataflow = 0; indexno = 1; maskflowfailno = 0, debug = 0, fvr_only = 0, tracestart = 1; runcount = 0, fixedvsrandomtest = 1;
 
     // Make directories with given permission settings. Default 0777.
@@ -4186,7 +4194,11 @@ int main ( int argc, char *argv[] )
     randdata = fopen(RANDDATAFILE,"w");
     uartout = fopen(UARTOUTFILE,"w");
     datafile = fopen(DATAFILEPATH,"r");
-    
+    flagfile = fopen(flag_file, "r");
+
+    if (flagfile == NULL)
+      fprintf(stderr, "Warning: flag file filepointer NULL\n");
+
     if(randdata == NULL)
         fprintf(stderr,"Warning: randdata filepointer NULL\n");
      

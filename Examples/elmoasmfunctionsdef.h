@@ -53,3 +53,7 @@ extern void initialisemaskflow(unsigned char * pointer);
 extern void resetmaskflow(void);
 extern void setmaskflowstart(unsigned int start);
 extern void resetdatafile(void);
+
+// read arbitrary address
+
+extern void addr_readb(unsigned char *pointer, unsigned char *dst );

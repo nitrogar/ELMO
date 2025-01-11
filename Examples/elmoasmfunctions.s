@@ -91,6 +91,24 @@ bx lr
 
 .endfunc
 
+
+.func addr_readb
+.global  addr_readb
+// arg 0 : address to read from
+// arg 1 : address to store the read value
+
+addr_readb:
+    push {r0-r7}
+    ldr r2, [r0, #0]
+    strb r2, [r1, #0]
+    pop {r0-r7}
+
+bx lr
+
+.endfunc
+
+
+
 .func LoadN
 .global LoadN
 
