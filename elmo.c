@@ -756,7 +756,7 @@ unsigned int read32 ( unsigned int addr )
 
     str = (char *)malloc(len);
     
-    fprintf(stderr, "read32(0x%08X)\n", addr);
+    //fprintf(stderr, "read32(0x%08X)\n", addr);
     switch(addr&0xF0000000)
     {
         case 0xE0000000:
@@ -789,26 +789,26 @@ unsigned int read32 ( unsigned int addr )
                 }
                 case 0xE1000000: {
 
-                  fprintf(stderr, "data READ read32(0x%08X)=", addr);
+                  //fprintf(stderr, "data READ read32(0x%08X)=", addr);
                   getline(&str, &len, datafile);
                   data = (int)strtol(str, NULL, 16);
-                  printf("%x\n", data);
+                  //printf("%x\n", data);
                   free(str);
                   return (data);
                 }
                 // read CTF FLAG
                 case 0xE1000020: {
-                  fprintf(stderr, "FLAG READ read32(0x%08X)=", addr);
+                  //fprintf(stderr, "FLAG READ read32(0x%08X)=", addr);
                   getline(&str, &len, flagfile);
                   data = (int)strtol(str, NULL, 16);
-                  printf("%x\n", data);
+                  //printf("%x\n", data);
                   free(str);
                   return (data);
                 }
                 case 0xE1000004:
                 {
                     data = rand();
-                    fprintf(randdata,"%2x\n",data&0xFF);
+                    //fprintf(randdata,"%2x\n",data&0xFF);
                     free(str);
                     return(data);
                 }
